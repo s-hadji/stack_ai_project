@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stack-ai"
+version = "0.0.1"
+description = "Compose and compile heterogeneous AI graphs into a single PyTorch module with a super-simple connect() API."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name="s-hadji"}]
+dependencies = ["torch>=2.1"]
+keywords = ["pytorch", "graph", "llm", "composition", "pipelines"]
+
+[project.optional-dependencies]
+hf = ["transformers>=4.41", "huggingface_hub>=0.23"]
+viz = ["graphviz"]
+dev = ["pytest", "pytest-cov", "ruff", "mypy"]
+
+[tool.setuptools.packages.find]
+where = ["."]
