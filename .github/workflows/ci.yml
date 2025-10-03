@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    name: tests (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10", "3.11", "3.12" ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml', '**/tox.ini') }}
+          restore-keys: ${{ runner.os }}-pip-${{ matrix.python-version }}-
+
+      - name: Install tox
+        run: pip install tox
+
+      - name: Run tests via tox
+        run: tox -q
+
+  lint:
+    name: lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-lint-${{ hashFiles('**/tox.ini') }}
+          restore-keys: ${{ runner.os }}-pip-lint-
+
+      - name: Install tox
+        run: pip install tox
+
+      - name: Run ruff via tox
+        run: tox -q -e lint
+
+  typecheck:
+    name: typecheck (mypy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-type-${{ hashFiles('**/tox.ini') }}
+          restore-keys: ${{ runner.os }}-pip-type-
+
+      - name: Install tox
+        run: pip install tox
+
+      - name: Run mypy via tox
+        run: tox -q -e typecheck

@@ -1,13 +1,8 @@
-# -------------------------
-# Python byte-compiled / cache
-# -------------------------
 __pycache__/
 *.py[cod]
 *$py.class
+__pypackages__/
 
-# -------------------------
-# Distribution / packaging
-# -------------------------
 build/
 dist/
 wheels/
@@ -17,9 +12,6 @@ pip-wheel-metadata/
 *.egg
 .Python
 
-# -------------------------
-# Virtual environments & tools
-# -------------------------
 .venv/
 venv/
 env/
@@ -30,59 +22,38 @@ ENV/
 .env.*
 .python-version
 
-# -------------------------
-# PyInstaller
-# -------------------------
-*.spec
-
-# -------------------------
-# Tests / coverage
-# -------------------------
 .pytest_cache/
 .coverage
 .coverage.*
+coverage.xml
 htmlcov/
 .tox/
 .nox/
+junit*.xml
 
-# -------------------------
-# Static type checkers / linters
-# -------------------------
 .mypy_cache/
 .pytype/
 .ruff_cache/
 
-# -------------------------
-# Logs & runtime
-# -------------------------
 logs/
 *.log
+*.tmp
+tmp/
+temp/
 
-# -------------------------
-# Jupyter
-# -------------------------
 .ipynb_checkpoints/
 
-# -------------------------
-# OS cruft
-# -------------------------
 .DS_Store
 Thumbs.db
 ehthumbs.db
 Icon?
 desktop.ini
 
-# -------------------------
-# IDE / Editors
-# -------------------------
 .idea/
 .vscode/
 .spyproject/
 *.iml
 
-# -------------------------
-# ML / DL artifacts
-# -------------------------
 checkpoints/
 runs/
 lightning_logs/
@@ -92,10 +63,12 @@ lightning_logs/
 *.onnx
 *.safetensors
 
-# -------------------------
-# Hugging Face / datasets cache (project-local)
-# -------------------------
 .huggingface/
 .cache/
 data/
 datasets/
+
+run_history.jsonl
+artifacts/
+outputs/
+reports/
